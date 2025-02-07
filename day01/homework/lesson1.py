@@ -5,10 +5,10 @@ surname = "abzianidze"
 
 print (name) 
 
-age 12
-height 160
+age= 12
+height= 160
 
-knows_programmin = True
+knows_programming = True
 
 is_ugly = False
 
