@@ -1,0 +1,1 @@
+#True სიმართლე False ტყუილი, კიდევ არის and, or, not True და not Folse
