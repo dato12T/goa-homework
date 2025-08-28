@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ფერების მაგალითები (hex, rgb, named)</title>
+  <style>
+    :root{
+      --radius: 16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      margin:0; padding:0; line-height:1.6; color:#1f2937; background:#f8fafc;
+    }
+    header{
+      padding:2rem 1rem; text-align:center; background:linear-gradient(135deg,#EEF2FF,#E0F2FE);
+      border-bottom:1px solid #e5e7eb
+    }
+    h1{margin:0 0 .5rem 0; font-size:clamp(1.4rem, 1rem + 2vw, 2rem)}
+    .container{max-width:1000px; margin:0 auto; padding:1.25rem}
+    .grid{display:grid; gap:1rem; grid-template-columns: repeat(auto-fit, minmax(260px,1fr));}
+    .card{
+      border:1px solid #e5e7eb; border-radius:var(--radius); background:#ffffff; overflow:hidden; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .card h2{font-size:1.1rem; margin:0; padding:1rem; border-bottom:1px solid #f1f5f9; background:#f8fafc}
+    .swatch{display:flex; align-items:center; justify-content:space-between; padding:1rem 1.25rem;}
+    .badge{font:600 12px/1 system-ui; padding:.25rem .5rem; border-radius:999px; background:#111827; color:#fff}
+    .example-text{margin-top:.5rem; font-size:.95rem}
+
+    /* --- Examples required by the task --- */
+    .hex-bg{ background-color: #4F46E5; color: #FFFFFF; font-size:18px; padding:20px; }
+    .rgb-bg{ background-color: rgb(16, 185, 129); color: rgb(17, 24, 39); font-size:16px; padding:18px; }
+    .named-bg{ background-color: tomato; color: white; font-size:20px; padding:22px; }
+
+    .hex-text{ color: #EF4444; font-size:17px; }
+    .rgb-text{ color: rgb(59, 130, 246); font-size:15px; }
+    .named-text{ color: rebeccapurple; font-size:19px; }
+
+    /* image styling */
+    .image-wrapper{margin:2rem auto; text-align:center;}
+    .image-wrapper img{width:300px; height:auto; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,.1)}
+
+    /* extras */
+    .footer{padding:1rem; text-align:center; color:#64748b}
+    code{background:#f1f5f9; padding:.15rem .35rem; border-radius:6px}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>CSS ფერები — color და background-color</h1>
+    <p>ქვემოთ ნახავთ როგორ იხმაროთ <code>hex</code>, <code>rgb()</code> და <code>სახელოვნო (named)</code> ფერები, ასევე დავამატეთ ზომები და სურათი.</p>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <!-- HEX background + text -->
+      <section class="card">
+        <h2>HEX — <code>#RRGGBB</code></h2>
+        <div class="swatch hex-bg">
+          <div>
+            <div class="badge">background-color</div>
+            <div class="example-text">background-color: <code>#4F46E5</code></div>
+          </div>
+          <strong>#4F46E5</strong>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="badge">color</div>
+            <div class="example-text">color: <code>#EF4444</code></div>
+          </div>
+          <span class="hex-text"><strong>ეს არის ტექსტი</strong></span>
+        </div>
+      </section>
+
+      <!-- RGB background + text -->
+      <section class="card">
+        <h2>RGB — <code>rgb(r, g, b)</code></h2>
+        <div class="swatch rgb-bg">
+          <div>
+            <div class="badge">background-color</div>
+            <div class="example-text">background-color: <code>rgb(16, 185, 129)</code></div>
+          </div>
+          <strong>rgb(16, 185, 129)</strong>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="badge">color</div>
+            <div class="example-text">color: <code>rgb(59, 130, 246)</code></div>
+          </div>
+          <span class="rgb-text"><strong>ეს არის ტექსტი</strong></span>
+        </div>
+      </section>
+
+      <!-- Named background + text -->
+      <section class="card">
+        <h2>სახელოვანი ფერები — Named</h2>
+        <div class="swatch named-bg">
+          <div>
+            <div class="badge">background-color</div>
+            <div class="example-text">background-color: <code>tomato</code></div>
+          </div>
+          <strong>tomato</strong>
+        </div>
+        <div class="swatch">
+          <div>
+            <div class="badge">color</div>
+            <div class="example-text">color: <code>rebeccapurple</code></div>
+          </div>
+          <span class="named-text"><strong>ეს არის ტექსტი</strong></span>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

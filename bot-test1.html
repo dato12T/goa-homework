@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mini Aim Trainer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { height: 100%; margin: 0; font-family: system-ui, sans-serif; background: #111; color: #eee; }
+    #hud { position: fixed; top: 10px; left: 10px; display: flex; gap: 16px; font-weight: 600; }
+    #btns { position: fixed; top: 10px; right: 10px; display: flex; gap: 8px; }
+    button { background: #222; color: #eee; border: 1px solid #444; padding: 6px 10px; border-radius: 10px; cursor: pointer; }
+    button:hover { background: #2a2a2a; }
+    canvas { display: block; width: 100vw; height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="hud">
+    <div>Score: <span id="score">0</span></div>
+    <div>Misses: <span id="miss">0</span></div>
+    <div>Time: <span id="time">30.0</span>s</div>
+    <div>Accuracy: <span id="acc">100%</span></div>
+  </div>
+  <div id="btns">
+    <button id="start">Start</button>
+    <button id="hard">Toggle Hard</button>
+    <button id="reset">Reset</button>
+  </div>
+  <canvas id="c"></canvas>
+
+  <script>
+    const canvas = document.getElementById('c');
+    const ctx = canvas.getContext('2d');
+    const scoreEl = document.getElementById('score');
+    const missEl = document.getElementById('miss');
+    const timeEl = document.getElementById('time');
+    const accEl = document.getElementById('acc');
+    const startBtn = document.getElementById('start');
+    const hardBtn = document.getElementById('hard');
+    const resetBtn = document.getElementById('reset');
+
+    let W, H;
+    function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+    addEventListener('resize', resize); resize();
+
+    let score = 0, misses = 0, clicks = 0;
+    let hardMode = false;
+    let running = false;
+    let timeLeft = 30.0; // seconds
+    let last = 0;
+
+    const target = { x: 200, y: 200, r: 30, vx: 0, vy: 0, alive: false };
+
+    function spawnTarget() {
+      const margin = 40;
+      target.r = hardMode ? rand(14, 22) : rand(20, 34);
+      target.x = rand(margin + target.r, W - margin - target.r);
+      target.y = rand(margin + target.r, H - margin - target.r);
+      if (hardMode) {
+        const speed = rand(80, 200);
+        const ang = Math.random() * Math.PI * 2;
+        target.vx = Math.cos(ang) * speed;
+        target.vy = Math.sin(ang) * speed;
+      } else {
+        target.vx = target.vy = 0;
+      }
+      target.alive = true;
+    }
+
+    function rand(a, b) { return a + Math.random() * (b - a); }
+
+    canvas.addEventListener('mousedown', (e) => {
+      if (!running) return;
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      clicks++;
+      const d = Math.hypot(mx - target.x, my - target.y);
+      if (d <= target.r && target.alive) {
+        score++;
+        target.alive = false;
+        spawnTarget();
+      } else {
+        misses++;
+      }
+      updateHUD();
+    });
+
+    startBtn.onclick = () => { if (!running) start(); };
+    resetBtn.onclick = () => reset();
+    hardBtn.onclick = () => { hardMode = !hardMode; hardBtn.textContent = hardMode ? 'Hard: ON' : 'Toggle Hard'; };
+
+    function start() {
+      reset(false);
+      running = true;
+      spawnTarget();
+      last = performance.now();
+      requestAnimationFrame(loop);
+    }
+
+    function reset(stop = true) {
+      running = !stop && running;
+      score = 0; misses = 0; clicks = 0;
+      timeLeft = 30.0;
+      target.alive = false;
+      updateHUD();
+      draw();
+    }
+
+    function updateHUD() {
+      scoreEl.textContent = score;
+      missEl.textContent = misses;
+      timeEl.textContent = timeLeft.toFixed(1);
+      const acc = clicks ? (score / clicks) * 100 : 100;
+      accEl.textContent = acc.toFixed(0) + '%';
+    }
+
+    function loop(t) {
+      const dt = Math.min(0.05, (t - last) / 1000); // clamp
+      last = t;
+      if (!running) return;
+
+      timeLeft -= dt;
+      if (timeLeft <= 0) {
+        timeLeft = 0;
+        running = false;
+        updateHUD();
+        draw(); // final frame
+        alert(`Time! Score: ${score} | Accuracy: ${accEl.textContent}`);
+        return;
+      }
+
+      // move target in hard mode
+      if (hardMode && target.alive) {
+        target.x += target.vx * dt;
+        target.y += target.vy * dt;
+        // bounce off edges
+        if (target.x - target.r < 0 && target.vx < 0) target.vx *= -1;
+        if (target.x + target.r > W && target.vx > 0) target.vx *= -1;
+        if (target.y - target.r < 0 && target.vy < 0) target.vy *= -1;
+        if (target.y + target.r > H && target.vy > 0) target.vy *= -1;
+      }
+
+      updateHUD();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      // background grid
+      ctx.globalAlpha = 0.1;
+      for (let x = 0; x < W; x += 40) { ctx.fillRect(x, 0, 1, H); }
+      for (let y = 0; y < H; y += 40) { ctx.fillRect(0, y, W, 1); }
+      ctx.globalAlpha = 1;
+
+      if (target.alive) {
+        // outer ring
+        ctx.beginPath();
+        ctx.arc(target.x, target.y, target.r, 0, Math.PI * 2);
+        ctx.fillStyle = '#36c';
+        ctx.fill();
+
+        // inner ring
+        ctx.beginPath();
+        ctx.arc(target.x, target.y, target.r * 0.5, 0, Math.PI * 2);
+        ctx.fillStyle = '#9cf';
+        ctx.fill();
+
+        // dot
+        ctx.beginPath();
+        ctx.arc(target.x, target.y, 2, 0, Math.PI * 2);
+        ctx.fillStyle = '#fff';
+        ctx.fill();
+      }
+
+      if (!running) {
+        ctx.fillStyle = '#eee';
+        ctx.font = '600 28px system-ui, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Click START to begin • 30s round', W / 2, H / 2 - 10);
+        ctx.font = '16px system-ui, sans-serif';
+        ctx.fillText('Tip: keep arm relaxed, track with your whole arm for big moves, wrist for micro-corrections.', W / 2, H / 2 + 20);
+      }
+    }
+
+    draw();
+  </script>
+</body>
+</html>
