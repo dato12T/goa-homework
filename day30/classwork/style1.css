@@ -1,0 +1,36 @@
+
+h1 {
+    color: darkblue;
+    text-align: center;
+    font-size: 250%; 
+}
+
+p {
+    color: #444;
+    font-size: 120%; 
+}
+
+.box {
+    width: 50%;   
+    background-color: lightgreen;
+    padding: 20px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+button {
+    background-color: tomato;
+    color: white;
+    padding: 10px 20px;
+    font-size: 100%; 
+    border: none;
+    border-radius: 8px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+    font-size: 90%;
+}
