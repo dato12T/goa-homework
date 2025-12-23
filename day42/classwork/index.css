@@ -1,0 +1,64 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    height: 55vh;
+    gap: 30px;
+
+}
+
+.Ball{
+    background-color: black;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    animation: BoxReveal 20s infinite;
+}
+
+
+@keyframes BoxReveal{
+    0%{
+        background-color: black;
+        transform: translateY(300px);
+    }
+    10%{
+        background-color: blue;
+        transform: translateY(-250px);
+    }
+    20%{
+        background-color: black;
+        transform: translateY(300px);
+    }
+    30%{
+        background-color: green;
+        transform: translateY(-250px);
+    }
+    40%{
+        background-color: black;
+        transform: translateY(300px);
+    }
+    50%{
+        background-color: yellow;
+        transform: translateY(-250px);
+    }
+    60%{
+        background-color: black;
+        transform: translateY(300px);
+    }
+    70%{
+        background-color: salmon;
+        transform: translateY(-250px);
+    }
+    80%{
+        background-color: black;
+        transform: translateY(300px);
+    }
+    90%{
+        background-color: purple;
+        transform: translateY(-250px);
+    }
+    100%{
+        background-color: black;
+        transform: translateY(300px);
+    }
+}
