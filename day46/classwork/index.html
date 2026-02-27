@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <input type="number" id="r" placeholder="Red">
+  <input type="number" id="g" placeholder="Green">
+  <input type="number" id="b" placeholder="Blue">
+
+  <button onclick="changeColor()">OK</button>
+
+  <script>
+    function changeColor() {
+      let r = document.getElementById("r").value;
+      let g = document.getElementById("g").value;
+      let b = document.getElementById("b").value;
+
+      document.body.style.backgroundColor = "rgb(" + r + "," + g + "," + b + ")";
+    }
+  </script>
+
+</body>
+</html>

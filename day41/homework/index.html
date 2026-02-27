@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Hover & Transition</title>
+<style>
+body{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+.box{
+  width: 150px;
+  height: 150px;
+  background-color: steelblue;
+  transition: background-color 0.5s ease;
+}
+
+.box:hover{
+  background-color: tomato;
+}
+
+button{
+  padding: 10px 20px;
+  font-size: 16px;
+  transition: transform 0.5s ease;
+}
+
+button:hover{
+  transform: scale(1.2);
+}
+
+img{
+  width: 200px;
+  transition: opacity 0.5s ease;
+}
+
+img:hover{
+  opacity: 0.7;
+}
+
+p{
+  font-size: 18px;
+  transition: color 0.5s ease;
+}
+
+p:hover{
+  color: crimson;
+}
+
+.circle-box{
+  width: 120px;
+  height: 120px;
+  background-color: purple;
+  transition: border-radius 0.5s ease;
+}
+
+.circle-box:hover{
+  border-radius: 50%;
+}
+
+</style>
+</head>
+<body>
+
+<div class="box"></div>
+
+<button>Hover Me</button>
+
+<img src="https://via.placeholder.com/200" alt="example image">
+
+<p>Hover over this text</p>
+
+<div class="circle-box"></div>
+
+</body>
+</html>
