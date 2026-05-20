@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    gamarjoba
+</head>
+<body>
+
+<h1 id="title">2 jer daawire</h1>
+
+<script>
+  const title = document.getElementById("title");
+
+  document.addEventListener("keydown", function(event) {
+    console.log("Key pressed:", event.key);
+
+
+    if (event.key === "a") {
+      title.style.color = "red";
+    }
+  });
+
+  title.addEventListener("dblclick", function() {
+    title.style.backgroundColor = "blue";
+    title.textContent = "Opaa ai ase mushaobs 2 kliki!";
+  });
+</script>
+
+</body>
+</html>

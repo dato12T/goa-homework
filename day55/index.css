@@ -1,0 +1,34 @@
+body{
+    background-color: #141414;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 100vh;
+}
+
+.container{
+    background-color: #1f1f1f;
+    text-align: center;
+    padding: 30px;
+    border-radius: 15px;
+    width: 300px;
+    height: 500px;
+}
+
+.avatar{
+    border-radius: 150px;
+    width: 90px;
+}
+
+h1 {
+    color: white;
+    font-size: 25px;
+    margin-bottom: 6px;
+}
+
+h3 {
+    color: #9eb05b;
+    font-size: 15px;
+    margin-top: 0px;
+}
+

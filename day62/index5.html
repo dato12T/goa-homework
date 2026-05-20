@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Events Example</title>
+</head>
+<body>
+
+<button id="btn">Tap Tap Tap</button>
+
+<h1 id="text">masi chemtan axlos gausvi</h1>
+
+<script>
+let count = 0;
+
+let button = document.getElementById("btn");
+let text = document.getElementById("text");
+
+
+button.addEventListener("click", function() {
+    count++;
+
+    if(count == 3){
+        button.style.display = "none";
+    }
+});
+
+text.addEventListener("mouseover", function() {
+    text.textContent = "baro";
+});
+
+</script>
+
+</body>
+</html>
